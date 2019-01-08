@@ -7,10 +7,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/juridigo/juridigo_api/config"
-	"github.com/juridigo/juridigo_api/helpers"
-	"github.com/juridigo/juridigo_api/models"
-	"github.com/juridigo/juridigo_api/routes"
+	"github.com/juridigo/juridigo_api_usuario/config"
+	"github.com/juridigo/juridigo_api_usuario/helpers"
+	"github.com/juridigo/juridigo_api_usuario/models"
+	"github.com/juridigo/juridigo_api_usuario/routes"
 )
 
 var wg sync.WaitGroup

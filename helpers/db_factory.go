@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/juridigo/juridigo_api/config"
+	"github.com/juridigo/juridigo_api_usuario/config"
 
 	mgo "gopkg.in/mgo.v2"
 )

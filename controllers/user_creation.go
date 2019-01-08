@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	creditcard "github.com/durango/go-credit-card"
-	"github.com/juridigo/juridigo_api/config"
-	"github.com/juridigo/juridigo_api/helpers"
-	"github.com/juridigo/juridigo_api/models"
+	"github.com/juridigo/juridigo_api_usuario/config"
+	"github.com/juridigo/juridigo_api_usuario/helpers"
+	"github.com/juridigo/juridigo_api_usuario/models"
 
-	"github.com/juridigo/juridigo_api/utils"
+	"github.com/juridigo/juridigo_api_usuario/utils"
 )
 
 /*

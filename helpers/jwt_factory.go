@@ -7,8 +7,8 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/juridigo/juridigo_api/config"
-	"github.com/juridigo/juridigo_api/utils"
+	"github.com/juridigo/juridigo_api_usuario/config"
+	"github.com/juridigo/juridigo_api_usuario/utils"
 )
 
 /*

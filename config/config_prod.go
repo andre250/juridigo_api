@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/juridigo/juridigo_api/models"
+	"github.com/juridigo/juridigo_api_usuario/models"
 )
 
 /*

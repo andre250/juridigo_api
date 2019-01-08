@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/juridigo/juridigo_api/controllers"
-	"github.com/juridigo/juridigo_api/helpers"
-	"github.com/juridigo/juridigo_api/models"
+	"github.com/juridigo/juridigo_api_usuario/controllers"
+	"github.com/juridigo/juridigo_api_usuario/helpers"
+	"github.com/juridigo/juridigo_api_usuario/models"
 )
 
 /*

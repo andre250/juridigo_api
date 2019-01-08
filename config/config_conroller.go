@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/juridigo/juridigo_api/models"
+	"github.com/juridigo/juridigo_api_usuario/models"
 )
 
 var globaConfig models.Config

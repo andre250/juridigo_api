@@ -1,6 +1,6 @@
 package config
 
-import "github.com/juridigo/juridigo_api/models"
+import "github.com/juridigo/juridigo_api_usuario/models"
 
 /*
 Devel - Responsável pode difinir confirgurações de ambiente de desenvolvimento

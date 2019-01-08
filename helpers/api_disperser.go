@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"net/http"
 
-	"github.com/juridigo/juridigo_api/models"
+	"github.com/juridigo/juridigo_api_usuario/models"
 )
 
 /*
