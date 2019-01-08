@@ -10,6 +10,14 @@
   version = "v3.2.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:923ba3b72580b94b3b96b73fb3432d343f8e8dc229ea73483544525e08e883bc"
+  name = "github.com/durango/go-credit-card"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "986a3cc0c28230050dfc9008be2b147ebdbd8459"
+
+[[projects]]
   digest = "1:b0c25f00bad20d783d259af2af8666969e2fc343fa0dc9efe52936bbd67fb758"
   name = "github.com/rs/cors"
   packages = ["."]
@@ -47,6 +55,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/dgrijalva/jwt-go",
+    "github.com/durango/go-credit-card",
     "github.com/rs/cors",
     "golang.org/x/crypto/bcrypt",
     "gopkg.in/mgo.v2",
