@@ -72,7 +72,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	helpers.AWS().UploadFileToS3(f.Name())
 	os.Remove(f.Name())
 
-	registro.Curriculares.Curriculum = "https://s3.amazonaws.com/juridigo/" + f.Name()
+	registro.Curriculares.Curriculum = "https://s3.amazonaws.com/" + configuration.Amazon.Bucket + "/" + f.Name()
+
 	user := models.Usuario{
 		ID:             bson.NewObjectId(),
 		Cadastrais:     registro.Cadastrais,
