@@ -3,7 +3,6 @@ package helpers
 import (
 	"fmt"
 	"os"
-	"path"
 	"path/filepath"
 
 	"github.com/juridigo/juridigo_api_usuario/config"
@@ -51,9 +50,9 @@ func AWS() *AWSession {
 /*
 UploadFileToS3 - Executa o upload do arquivo
 */
-func (s *AWSession) UploadFileToS3() {
+func (s *AWSession) UploadFileToS3(path string) {
 	s3Svc := s3.New(s.Session)
-	file, err := os.Open("./teste/testee.docx")
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println("Failed to open file", file, err)
 		os.Exit(1)
@@ -61,10 +60,10 @@ func (s *AWSession) UploadFileToS3() {
 	defer file.Close()
 	var key string
 	if preserveDirStructureBool {
-		fileDirectory, _ := filepath.Abs("./teste/testee.docx")
+		fileDirectory, _ := filepath.Abs(path)
 		key = configuration.Amazon.Prefix + fileDirectory
 	} else {
-		key = configuration.Amazon.Prefix + path.Base("./teste/testee.docx")
+		key = configuration.Amazon.Prefix + path
 	}
 	// Upload the file to the s3 given bucket
 	params := &s3.PutObjectInput{

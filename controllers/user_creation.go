@@ -1,10 +1,12 @@
 package controllers
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 
 	creditcard "github.com/durango/go-credit-card"
@@ -50,12 +52,34 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	dec, err := base64.StdEncoding.DecodeString(registro.Curriculares.Curriculum)
+
+	if err != nil {
+		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
+		w.Write([]byte(`{"msg": "Erro ao processar currilum", "erro": "curriculum"}`))
+		return
+	}
+
+	f, err := os.Create(registro.Credenciais.Credencial + ".pdf")
+
+	if err != nil {
+		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
+		w.Write([]byte(`{"msg": "Erro ao processar currilum", "erro": "curriculum"}`))
+		return
+	}
+	f.Write(dec)
+	f.Close()
+	helpers.AWS().UploadFileToS3(f.Name())
+	os.Remove(f.Name())
+
+	registro.Curriculares.Curriculum = "https://s3.amazonaws.com/juridigo/" + f.Name()
 	user := models.Usuario{
 		ID:             bson.NewObjectId(),
 		Cadastrais:     registro.Cadastrais,
 		Curriculares:   registro.Curriculares,
 		DadosPagamento: payment,
 	}
+
 	err = helpers.Db().Insert("usuarios", user)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
