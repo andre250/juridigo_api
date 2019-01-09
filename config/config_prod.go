@@ -22,5 +22,11 @@ func prod() {
 			User:     os.Getenv("DB_USER"),
 			Database: os.Getenv("DB_NAME"),
 		},
+		Amazon: models.Amazon{
+			Prefix:  os.Getenv("AWS_FILE_PREFIX"),
+			Profile: os.Getenv("AWS_PROFILE"),
+			Bucket:  os.Getenv("AWS_BUCKET"),
+			Region:  os.Getenv("AWS_REGION"),
+		},
 	}
 }

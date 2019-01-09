@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 
 	creditcard "github.com/durango/go-credit-card"
 	"github.com/juridigo/juridigo_api_usuario/config"
@@ -23,18 +24,18 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(utils.HTTPStatusCode["METHOD_NOT_ALLOWED"])
 		w.Write([]byte("Metodo não existe"))
 	}
-	var user models.Usuario
+	var registro models.Registro
 
 	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&user)
+	err := decoder.Decode(&registro)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte("Erro ao obter dados"))
 	}
-	validateBasicInfo(w, user)
+	validateBasicInfo(w, registro)
 
 	configuration := config.GetConfig()
-	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), user.Pagamento)
+	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), registro.Pagamento)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["UNAUTHORIZED"])
 		w.Write([]byte(`{"erro":"Hash de pagamento inválido"}`))
@@ -48,11 +49,35 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`{"msg": "Cartão inválido", "erro": "cartão"}`))
 		return
 	}
-	user.DadosPagamento = payment
 
-	user.ID = bson.NewObjectId()
-	helpers.Db().Insert("usuarios", user)
-	fmt.Println(user.ID)
+	user := models.Usuario{
+		ID:             bson.NewObjectId(),
+		Cadastrais:     registro.Cadastrais,
+		Curriculares:   registro.Curriculares,
+		DadosPagamento: payment,
+	}
+	err = helpers.Db().Insert("usuarios", user)
+	if err != nil {
+		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
+		w.Write([]byte(`{"msg": "Inserção no banco falhou", "erro": "Insert"}`))
+		return
+	}
+
+	credencial := models.Credencial{
+		ID:         strings.Split(strings.Split(user.ID.String(), "ObjectIdHex(\"")[1], "\")")[0],
+		Credencial: registro.Credenciais.Credencial,
+		Tipo:       registro.Credenciais.Tipo,
+	}
+
+	err = helpers.Db().Insert("credenciais", credencial)
+	if err != nil {
+		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
+		w.Write([]byte(`{"msg": "Inserção no banco falhou", "erro": "Insert"}`))
+		return
+	}
+
+	w.WriteHeader(utils.HTTPStatusCode["OK"])
+	w.Write([]byte(`{"msg": "Conta criada com sucesso!"}`))
 }
 
 func validatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagamento, error) {
@@ -83,7 +108,7 @@ func validatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagament
 	return paymentModel, nil
 }
 
-func validateBasicInfo(w http.ResponseWriter, user models.Usuario) {
+func validateBasicInfo(w http.ResponseWriter, user models.Registro) {
 	var erros []models.ErroItem
 	errStatus := utils.DateValidation(user.Cadastrais.DataNascimento)
 	if errStatus != 0 {

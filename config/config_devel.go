@@ -18,6 +18,12 @@ func devel() {
 			Password: "jur1digo",
 			Database: "mica-develop",
 		},
+		Amazon: models.Amazon{
+			Prefix:  "juri_",
+			Profile: "default",
+			Bucket:  "juridigo",
+			Region:  "us-east-1",
+		},
 	}
 
 }

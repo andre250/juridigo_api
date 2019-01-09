@@ -5,12 +5,10 @@ import (
 	"regexp"
 
 	"github.com/juridigo/juridigo_api_usuario/config"
-	"github.com/juridigo/juridigo_api_usuario/models"
 	mgo "gopkg.in/mgo.v2"
 )
 
 var mainSession *mgo.Session
-var configuration models.Config
 
 /*
 Session - Modelo de sessão
@@ -50,9 +48,10 @@ func Db() *Session {
 /*
 Insert - Função de insert CRUD
 */
-func (s *Session) Insert(collection string, inserts interface{}) {
+func (s *Session) Insert(collection string, inserts interface{}) error {
 	err := s.Session.DB(configuration.Database.Database).C(collection).Insert(&inserts)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
+	return nil
 }

@@ -23,6 +23,8 @@ func main() {
 	wg.Add(1)
 	config.SetConfig(&wg)
 	wg.Wait()
+	helpers.InitConfig()
+	helpers.MakeSession()
 	// Obtenção das configurações de ambiente
 	configGlobal = config.GetConfig()
 	// inicialização da conexão

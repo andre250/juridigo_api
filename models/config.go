@@ -9,7 +9,7 @@ type App struct {
 }
 
 /*
-Database - Modelo para inicializadao do Database
+Database - Modelo para inicializaçao do Database
 */
 type Database struct {
 	Path     string `json:"path"`
@@ -19,10 +19,21 @@ type Database struct {
 }
 
 /*
+Amazon - Modelo para inicialização da Amazon
+*/
+type Amazon struct {
+	Profile string `json:"profile"`
+	Prefix  string `json:"prefix"`
+	Bucket  string `json:"bucket"`
+	Region  string `json:"region"`
+}
+
+/*
 Config - Model responsável por controlar configurações do Microsserviço
 */
 type Config struct {
 	Version  string   `json:"version"`
 	App      App      `json:"app"`
 	Database Database `json:"database"`
+	Amazon   Amazon   `json:"amazon"`
 }
