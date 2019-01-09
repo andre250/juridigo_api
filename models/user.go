@@ -1,16 +1,21 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gopkg.in/mgo.v2/bson"
+)
 
 /*
 Usuario - Modelo de inicialização de um usuario
 */
 type Usuario struct {
-	Credenciais    string       `bson:"credenciais" json:"creadenciais"`
-	Cadastrais     Cadastrais   `bson:"cadastrais" json:"cadastrais"`
-	Curriculares   Curriculares `bson:"curriculares" json:"curriculares"`
-	Pagamento      string       `bson:"pagamento" json:"pagamento"`
-	DadosPagamento Pagamento    `bson:"DadosPagamento" json:"DadosPagamento"`
+	ID             bson.ObjectId `bson:"_id" json:"id"`
+	Credenciais    string        `bson:"credenciais" json:"credenciais"`
+	Cadastrais     Cadastrais    `bson:"cadastrais" json:"cadastrais"`
+	Curriculares   Curriculares  `bson:"curriculares" json:"curriculares"`
+	Pagamento      string        `bson:"pagamento" json:"pagamento"`
+	DadosPagamento Pagamento     `bson:"DadosPagamento" json:"DadosPagamento"`
 }
 
 /*
@@ -30,7 +35,7 @@ type Cadastrais struct {
 	Número         string    `bson:"numero" json:"numero"`
 	Complemento    string    `bson:"complemento" json:"complemento"`
 	Longitude      float64   `bson:"longitude" json:"longitude"`
-	Latidade       float64   `bson:"latitude" json:"latitude"`
+	Latitude       float64   `bson:"latitude" json:"latitude"`
 }
 
 /*

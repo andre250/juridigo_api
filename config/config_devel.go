@@ -14,8 +14,9 @@ func devel() {
 		Version: "0.0.1",
 		Database: models.Database{
 			Path:     "mongodb://<dbuser>:<dbpassword>@ds229701.mlab.com:29701/mica-develop",
-			User:     "micauser",
-			Password: "micapass1",
+			User:     "juridigo",
+			Password: "jur1digo",
+			Database: "mica-develop",
 		},
 	}
 

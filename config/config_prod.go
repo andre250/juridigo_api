@@ -20,6 +20,7 @@ func prod() {
 			Path:     os.Getenv("DB_PATH"),
 			Password: os.Getenv("DB_PASS"),
 			User:     os.Getenv("DB_USER"),
+			Database: os.Getenv("DB_NAME"),
 		},
 	}
 }

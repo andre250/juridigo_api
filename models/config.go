@@ -15,6 +15,7 @@ type Database struct {
 	Path     string `json:"path"`
 	User     string `json:"user"`
 	Password string `json:"password"`
+	Database string `json:"database"`
 }
 
 /*

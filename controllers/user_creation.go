@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/juridigo/juridigo_api_usuario/config"
 	"github.com/juridigo/juridigo_api_usuario/helpers"
 	"github.com/juridigo/juridigo_api_usuario/models"
+	"gopkg.in/mgo.v2/bson"
 
 	"github.com/juridigo/juridigo_api_usuario/utils"
 )
@@ -32,41 +34,53 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	validateBasicInfo(w, user)
 
 	configuration := config.GetConfig()
-	payment, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), user.Pagamento)
+	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), user.Pagamento)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["UNAUTHORIZED"])
 		w.Write([]byte(`{"erro":"Hash de pagamento inválido"}`))
 		return
 	}
 
-	validatePaymentInfo(w, payment)
+	payment, err := validatePaymentInfo(w, paymentInfo)
+
+	if err != nil {
+		w.WriteHeader(utils.HTTPStatusCode["BAD_REQUEST"])
+		w.Write([]byte(`{"msg": "Cartão inválido", "erro": "cartão"}`))
+		return
+	}
+	user.DadosPagamento = payment
+
+	user.ID = bson.NewObjectId()
+	helpers.Db().Insert("usuarios", user)
+	fmt.Println(user.ID)
 }
 
-func validatePaymentInfo(w http.ResponseWriter, payment string) {
+func validatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagamento, error) {
 	paymentModel := models.Pagamento{}
 	err := json.Unmarshal([]byte(payment), &paymentModel)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["BAD_REQUEST"])
 		w.Write([]byte(`{"msg": "Erro no formato do Pagamento", "erro": "pagamento"}`))
-		return
+		return models.Pagamento{}, errors.New("Erro no formato do pagamaento")
 	}
 
 	card := creditcard.Card{Number: paymentModel.Numero, Cvv: paymentModel.Cvv, Month: paymentModel.MesVencimento, Year: paymentModel.AnoVencimento}
-	company, err := card.Method()
+	company, err := card.MethodValidate()
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["BAD_REQUEST"])
 		w.Write([]byte(`{"msg": "Cartão invalido", "erro": "cartao"}`))
-		return
+		return models.Pagamento{}, errors.New("Cartao inválido")
 	}
-	paymentModel.Banco = company.Long
+	paymentModel.Compania = company.Long
+
 	err = card.Validate()
 	if err != nil {
 		fmt.Println(err)
 		w.WriteHeader(utils.HTTPStatusCode["BAD_REQUEST"])
 		w.Write([]byte(`{"msg": "Cartão invalido", "erro": "cartao"}`))
-		return
+		return models.Pagamento{}, errors.New("Cartão inválido")
 	}
-
+	return paymentModel, nil
 }
 
 func validateBasicInfo(w http.ResponseWriter, user models.Usuario) {
