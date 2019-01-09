@@ -31,7 +31,7 @@ func Connection() {
 	}
 
 	session.SetMode(mgo.Monotonic, true)
-	fmt.Println("# Conexão ao banco de dados feita com sucesso!")
+	fmt.Println("# Conexão no banco de dados feita com sucesso!")
 	mainSession = session
 }
 

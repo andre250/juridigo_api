@@ -15,6 +15,7 @@ Routes - Controlador de rotas do microsserviço
 func Routes() {
 	helpers.APIDisperser("/user",
 		models.DefaultAPI{SubPath: "/register", Handler: controllers.CreateUser, Auth: false},
+		models.DefaultAPI{SubPath: "/register/facebook", Handler: controllers.CreateFacebookUser, Auth: false},
 	)
 }
 
