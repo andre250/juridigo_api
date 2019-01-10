@@ -75,6 +75,14 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		Tipo:       registro.Credenciais.Tipo,
 	}
 
+	if credencial.Tipo == 1 {
+		idUser, err := helpers.GetId(w, credencial.Credencial)
+		if err != nil {
+
+		}
+		credencial.FacebookID = idUser
+	}
+
 	err = helpers.Db().Insert("credenciais", credencial)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])

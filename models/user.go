@@ -16,6 +16,9 @@ type Usuario struct {
 	DadosPagamento Pagamento     `bson:"DadosPagamento" json:"DadosPagamento"`
 }
 
+/*
+Registro - Controlador de registro
+*/
 type Registro struct {
 	Credenciais  Credencial   `bson:"credenciais" json:"credenciais"`
 	Cadastrais   Cadastrais   `bson:"cadastrais" json:"cadastrais"`
@@ -23,10 +26,14 @@ type Registro struct {
 	Pagamento    string       `bson:"pagamento" json:"pagamento"`
 }
 
+/*
+Credencial - Controlador de acesso
+*/
 type Credencial struct {
 	ID         string `bson:"id" json:"id"`
 	Credencial string `bson:"credencial" json:"credencial"`
 	Tipo       int    `bson:"tipo" json:"tipo"`
+	FacebookID string `bson:"facebookId,omitempty" json:"facebookId"`
 }
 
 /*
