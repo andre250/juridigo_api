@@ -12,5 +12,5 @@
 *.out
 
 
+/config/config_devel.go
 /vendor
-/teste
