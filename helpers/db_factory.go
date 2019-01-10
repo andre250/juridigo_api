@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 
@@ -54,4 +55,36 @@ func (s *Session) Insert(collection string, inserts interface{}) error {
 		return err
 	}
 	return nil
+}
+
+/*
+Find - Função de Select CRUD
+*/
+func (s *Session) Find(collection string, query interface{}, tipo int) (interface{}, error) {
+	var result interface{}
+	var err error
+	queryFunc := s.Session.DB(configuration.Database.Database).C(collection).Find(query)
+
+	if tipo < 0 {
+		err = queryFunc.All(&result)
+	} else {
+		err = queryFunc.One(&result)
+	}
+
+	if err != nil {
+		return nil, errors.New("Erro ao consultar banco")
+	}
+	return result, nil
+}
+
+/*
+FindSelect - Função de insert CRUD
+*/
+func (s *Session) FindSelect(collection string, query, selector interface{}) {
+	var result interface{}
+	err := s.Session.DB(configuration.Database.Database).C(collection).Find(query).Select(selector).One(&result)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(result)
 }

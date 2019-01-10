@@ -28,5 +28,8 @@ func prod() {
 			Bucket:  os.Getenv("AWS_BUCKET"),
 			Region:  os.Getenv("AWS_REGION"),
 		},
+		Facebook: models.Facebook{
+			AppToken: os.Getenv("FACE_TOKEN"),
+		},
 	}
 }

@@ -1,6 +1,8 @@
 package config
 
-import "github.com/juridigo/juridigo_api_usuario/models"
+import (
+	"github.com/juridigo/juridigo_api_usuario/models"
+)
 
 /*
 Devel - Responsável pode difinir confirgurações de ambiente de desenvolvimento
@@ -23,6 +25,9 @@ func devel() {
 			Profile: "default",
 			Bucket:  "juridigo",
 			Region:  "us-east-1",
+		},
+		Facebook: models.Facebook{
+			AppToken: "199329427332694|PluJMN9CqiFsZCVmgNIOA_Z6H08",
 		},
 	}
 

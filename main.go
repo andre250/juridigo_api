@@ -31,7 +31,7 @@ func main() {
 	helpers.Connection()
 	// Inicialização do servidor
 	serverConfig := []string{":", configGlobal.App.Port}
-	fmt.Printf("Juridigo [User] v%s ouvindo porta: %s", configGlobal.Version, configGlobal.App.Port)
+	fmt.Printf("Juridigo [User] v%s ouvindo porta: %s\n", configGlobal.Version, configGlobal.App.Port)
 	if http.ListenAndServe(strings.Join(serverConfig, ""), nil) != nil {
 		fmt.Println("Porta já esta sendo utilizada")
 		log.Fatal()

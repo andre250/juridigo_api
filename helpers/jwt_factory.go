@@ -14,7 +14,7 @@ import (
 /*
 GenerateLoginToken - Metodo de criação de token JWT
 */
-func GenerateLoginToken(id string, name string, status string) string {
+func GenerateLoginToken(id, name string) string {
 	config := config.GetConfig()
 	var env string
 
@@ -28,7 +28,7 @@ func GenerateLoginToken(id string, name string, status string) string {
 
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"status":      status,
+		"id":          id,
 		"name":        name,
 		"environment": env,
 		"exp":         time.Now().Add(time.Hour * 8).Unix(),

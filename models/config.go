@@ -29,6 +29,13 @@ type Amazon struct {
 }
 
 /*
+Facebook - Modelo para inicialização do Facebook
+*/
+type Facebook struct {
+	AppToken string `json:"appToken"`
+}
+
+/*
 Config - Model responsável por controlar configurações do Microsserviço
 */
 type Config struct {
@@ -36,4 +43,5 @@ type Config struct {
 	App      App      `json:"app"`
 	Database Database `json:"database"`
 	Amazon   Amazon   `json:"amazon"`
+	Facebook Facebook `json:"appToken"`
 }
