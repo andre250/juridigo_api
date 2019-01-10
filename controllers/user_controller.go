@@ -82,6 +82,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		credencial.FacebookID = idUser
+		credencial.RecuperacaoLogin = registro.Credenciais.RecuperacaoLogin
 	}
 
 	err = helpers.Db().Insert("credenciais", credencial)

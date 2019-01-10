@@ -2,9 +2,9 @@ FROM golang:1.8 as builder
 ENV ENV=Staging
 
 LABEL MAINTAINER="GuilhermeCaruso"
-LABEL COMPANY="Mica"
+LABEL COMPANY="Juridigo"
 
-WORKDIR /go/src/gitlab.com/mica/backend/user
+WORKDIR /go/src/github.com/juridigo/juridigo_api_usuario
 
 COPY . ./
 
@@ -14,7 +14,9 @@ RUN dep ensure
 RUN go build
 
 FROM golang:1.8
-WORKDIR /go/src/gitlab.com/mica/backend/user
-COPY --from=builder /go/src/gitlab.com/mica/backend/user/user .
-CMD ./user
+WORKDIR /go/src/github.com/juridigo/juridigo_api_usuario
+COPY --from=builder /go/src/github.com/juridigo/juridigo_api_usuario/juridigo_api_usuario .
+COPY --from=builder /go/src/github.com/juridigo/juridigo_api_usuario/.env .
+
+CMD /bin/bash -c "source .env && ./juridigo_api_usuario"
 EXPOSE 3030

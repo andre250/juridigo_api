@@ -17,5 +17,6 @@ func Routes() {
 	helpers.APIDisperser("/auth",
 		models.DefaultAPI{SubPath: "/login", Handler: controllers.LoginAuth, Auth: false},
 		models.DefaultAPI{SubPath: "/login/facebook", Handler: controllers.FacebookAuth, Auth: false},
+		models.DefaultAPI{SubPath: "/login/facebook/recovery", Handler: controllers.RecoveryLogin, Auth: false},
 	)
 }

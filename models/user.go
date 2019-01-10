@@ -30,10 +30,11 @@ type Registro struct {
 Credencial - Controlador de acesso
 */
 type Credencial struct {
-	ID         string `bson:"id" json:"id"`
-	Credencial string `bson:"credencial" json:"credencial"`
-	Tipo       int    `bson:"tipo" json:"tipo"`
-	FacebookID string `bson:"facebookId,omitempty" json:"facebookId"`
+	ID               string `bson:"id" json:"id"`
+	Credencial       string `bson:"credencial" json:"credencial"`
+	Tipo             int    `bson:"tipo" json:"tipo"`
+	FacebookID       string `bson:"facebookId,omitempty" json:"facebookId"`
+	RecuperacaoLogin string `bson:"recuperacaoLogin,omitempty" json:"recuperacaoLogin"`
 }
 
 /*

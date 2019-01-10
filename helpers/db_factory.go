@@ -84,9 +84,9 @@ func (s *Session) FindSelect(collection string, query, selector interface{}) {
 	var result interface{}
 	err := s.Session.DB(configuration.Database.Database).C(collection).Find(query).Select(selector).One(&result)
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
-	fmt.Println(result)
+	return
 }
 
 /*
@@ -107,7 +107,6 @@ Update - Função de update CRUD
 func (s *Session) Update(collection string, reference, query interface{}) {
 	err := s.Session.DB(configuration.Database.Database).C(collection).Update(reference, query)
 	if err != nil {
-		fmt.Println(err)
 		return
 	}
 	return

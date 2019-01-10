@@ -35,6 +35,7 @@ func facebookInfo(w http.ResponseWriter, r *http.Request) ([]byte, models.Facebo
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte("Erro ao obter dados"))
+		return nil, models.FacebookToken{}
 	}
 
 	res, err := http.Get("https://graph.facebook.com/v3.2/me?fields=address,birthday,email,gender,id,location,name&access_token=" + token.Credencial)

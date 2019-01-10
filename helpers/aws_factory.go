@@ -25,8 +25,7 @@ MakeSession - Criar sessão Amazon
 func MakeSession() {
 	configuration = config.GetConfig()
 	sess, err := session.NewSessionWithOptions(session.Options{
-		Config:  aws.Config{Region: aws.String(configuration.Amazon.Region)},
-		Profile: configuration.Amazon.Profile,
+		Config: aws.Config{Region: aws.String(configuration.Amazon.Region)},
 	})
 	if err != nil {
 		fmt.Println("failed to create session,", err)
