@@ -78,7 +78,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if credencial.Tipo == 1 {
 		idUser, err := helpers.GetId(w, credencial.Credencial)
 		if err != nil {
-
+			helpers.Db().Remove("usuarios", bson.M{"cadastrais.email": user.Cadastrais.Email})
+			return
 		}
 		credencial.FacebookID = idUser
 	}

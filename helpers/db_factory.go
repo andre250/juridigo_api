@@ -88,3 +88,15 @@ func (s *Session) FindSelect(collection string, query, selector interface{}) {
 	}
 	fmt.Println(result)
 }
+
+/*
+Remove - Função de delete CRUD
+*/
+func (s *Session) Remove(collection string, query interface{}) {
+	err := s.Session.DB(configuration.Database.Database).C(collection).Remove(query)
+
+	if err != nil {
+		return
+	}
+	return
+}
