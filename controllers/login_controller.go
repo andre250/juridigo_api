@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/juridigo/juridigo_api_usuario/helpers"
@@ -14,7 +13,7 @@ import (
 /*
 Login - Função de acesso
 */
-func Login(w http.ResponseWriter, r *http.Request) {
+func LoginAuth(w http.ResponseWriter, r *http.Request) {
 	if helpers.ReqRefuse(w, r, "POST") != nil {
 		return
 	}
@@ -41,7 +40,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if resultado.Tipo == 0 {
 		defaultAuth(w, resultado)
 	} else {
-		w.Write([]byte("Facebook"))
+		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
+		w.Write([]byte("Erro ao obter dados"))
+		return
 	}
 
 }
@@ -49,7 +50,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 func defaultAuth(w http.ResponseWriter, resultado models.Credencial) {
 	query, err := helpers.Db().Find("usuarios", bson.M{"_id": bson.ObjectIdHex(resultado.ID)}, 1)
 	if err != nil {
-		fmt.Println(err)
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte("Erro ao obter dados de login"))
 		return

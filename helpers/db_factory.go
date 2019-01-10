@@ -94,8 +94,20 @@ Remove - Função de delete CRUD
 */
 func (s *Session) Remove(collection string, query interface{}) {
 	err := s.Session.DB(configuration.Database.Database).C(collection).Remove(query)
-
 	if err != nil {
+		return
+	}
+	return
+
+}
+
+/*
+Update - Função de update CRUD
+*/
+func (s *Session) Update(collection string, reference, query interface{}) {
+	err := s.Session.DB(configuration.Database.Database).C(collection).Update(reference, query)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	return

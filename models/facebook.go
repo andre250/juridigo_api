@@ -4,7 +4,7 @@ package models
 FacebookToken - Busca de token
 */
 type FacebookToken struct {
-	Token string `bson:"token" json:"token"`
+	Credencial string `bson:"credencial" json:"credencial"`
 }
 
 /*
