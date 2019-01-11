@@ -8,6 +8,7 @@ HashPassword - Função de criptografia de senha
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
+
 }
 
 /*

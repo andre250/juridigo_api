@@ -18,7 +18,6 @@ func GetFacebookInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	body, _ := facebookInfo(w, r)
-
 	if body == nil {
 		return
 	}

@@ -1,7 +1,7 @@
 package models
 
 /*
-Login - Padrão de chamada de login
+Login - chamada de login padrão
 */
 type Login struct {
 	Credencial string `bson:"credencial" json:"credencial"`

@@ -18,7 +18,6 @@ func LoginAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var credencial models.Login
-
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&credencial)
 	if err != nil {

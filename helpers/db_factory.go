@@ -53,6 +53,7 @@ func (s *Session) Insert(collection string, inserts interface{}) error {
 	err := s.Session.DB(configuration.Database.Database).C(collection).Insert(&inserts)
 	if err != nil {
 		return err
+
 	}
 	return nil
 }

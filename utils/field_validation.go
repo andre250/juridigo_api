@@ -96,5 +96,6 @@ func CpfValidation(cpf string) bool {
 	if mod != digit2 {
 		return false
 	}
+
 	return true
 }

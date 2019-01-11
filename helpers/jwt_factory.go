@@ -17,7 +17,6 @@ GenerateLoginToken - Metodo de criação de token JWT
 func GenerateLoginToken(id, name string) string {
 	config := config.GetConfig()
 	var env string
-
 	switch os.Getenv("ENV") {
 	case "Production":
 		env = "prod"

@@ -10,6 +10,7 @@ import (
 Cors - utilizado para comunicação entre containers e local
 */
 func Cors(next http.HandlerFunc) http.HandlerFunc {
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		c := cors.New(cors.Options{
 			AllowedOrigins:   []string{"*"},

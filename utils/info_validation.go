@@ -22,6 +22,7 @@ func ValidateBasicInfo(w http.ResponseWriter, user models.Registro) {
 			Erro: "dataNascimento",
 		})
 	}
+
 	err := EmailValidation(user.Cadastrais.Email)
 	if !err {
 		erros = append(erros, models.ErroItem{

@@ -15,7 +15,6 @@ func UploadFile(w http.ResponseWriter, name, item string) string {
 	if err != nil {
 		return ""
 	}
-
 	f, err := os.Create(name[:len(name)/3] + ".pdf")
 
 	if err != nil {

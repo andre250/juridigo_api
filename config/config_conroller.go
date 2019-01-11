@@ -14,7 +14,6 @@ var globaConfig models.Config
 SetConfig - Função responsavel por controlar variaveis de ambiente do microsserviço
 */
 func SetConfig(wg *sync.WaitGroup) {
-
 	if os.Getenv("ENV") == "Production" || os.Getenv("ENV") == "Staging" {
 		prod()
 		list, err := configValidator()

@@ -19,6 +19,7 @@ var configGlobal models.Config
 func main() {
 	// Inicialização das rotas
 	routes.Routes()
+
 	//Processo de definição das configurações
 	wg.Add(1)
 	config.SetConfig(&wg)

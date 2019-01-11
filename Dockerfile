@@ -1,5 +1,4 @@
 FROM golang:1.8 as builder
-ENV ENV=Staging
 
 LABEL MAINTAINER="GuilhermeCaruso"
 LABEL COMPANY="Juridigo"
@@ -11,6 +10,7 @@ COPY . ./
 RUN apt-get update
 RUN go get -u github.com/golang/dep/cmd/dep
 RUN dep ensure
+RUN /bin/bash -c "source .env"
 RUN go build
 
 FROM golang:1.8

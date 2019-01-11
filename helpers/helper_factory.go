@@ -11,5 +11,6 @@ var configuration models.Config
 InitiConfig - Inicializador de configurações
 */
 func InitConfig() {
+
 	configuration = config.GetConfig()
 }

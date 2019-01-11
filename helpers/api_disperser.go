@@ -11,6 +11,7 @@ import (
 Função responsável por controle de middleware
 */
 func api(patch string, handleFunction http.HandlerFunc, auth bool) {
+
 	if auth {
 		http.HandleFunc(patch, CheckToken(handleFunction))
 	} else {

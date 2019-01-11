@@ -30,5 +30,4 @@ func devel() {
 			AppToken: "199329427332694|PluJMN9CqiFsZCVmgNIOA_Z6H08",
 		},
 	}
-
 }

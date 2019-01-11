@@ -19,7 +19,6 @@ func FacebookAuth(w http.ResponseWriter, r *http.Request) {
 	if helpers.ReqRefuse(w, r, "POST") != nil {
 		return
 	}
-
 	body, token := facebookInfo(w, r)
 	if body == nil {
 		return

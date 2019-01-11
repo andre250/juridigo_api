@@ -15,7 +15,6 @@ GetId - Recupera dado de IDuser do Facebook
 */
 func GetId(w http.ResponseWriter, token string) (string, error) {
 	resp, err := http.Get("https://graph.facebook.com/me?access_token=" + token)
-
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte("Erro interno na verificação do facebook"))

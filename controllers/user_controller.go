@@ -29,7 +29,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Erro ao obter dados"))
 	}
 	utils.ValidateBasicInfo(w, registro)
-
 	configuration := config.GetConfig()
 	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), registro.Pagamento)
 	if err != nil {

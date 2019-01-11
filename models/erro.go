@@ -1,7 +1,7 @@
 package models
 
 /*
-ErroList - Modelo de Apresentação de Erros
+ErroList - Modelo de Apresentação de erros
 */
 type ErroList struct {
 	Erros []ErroItem `json:"erros"`

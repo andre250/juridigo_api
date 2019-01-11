@@ -24,7 +24,6 @@ func configValidator() ([]string, bool) {
 			}
 		}
 	}
-
 	if len(errList) != 0 {
 		return errList, false
 	}

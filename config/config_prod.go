@@ -10,6 +10,7 @@ import (
 Prod - Responsável pode difinir confirgurações de ambiente
 */
 func prod() {
+
 	globaConfig = models.Config{
 		App: models.App{
 			Port:   os.Getenv("APP_PORT"),

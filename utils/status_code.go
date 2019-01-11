@@ -4,6 +4,7 @@ package utils
 HTTPStatusCode - Utilidade para declaração de retorno
 */
 var HTTPStatusCode = map[string]int{
+
 	"CONTINUE":                        100,
 	"SWITCHING_PROTOCOLS":             101,
 	"OK":                              200,

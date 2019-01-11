@@ -7,7 +7,7 @@ import (
 )
 
 /*
-Usuario - Modelo de inicialização de um usuario
+Usuario - Modelo de inicialização de um usuário
 */
 type Usuario struct {
 	ID             bson.ObjectId `bson:"_id" json:"id"`

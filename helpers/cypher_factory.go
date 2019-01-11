@@ -45,6 +45,7 @@ func Encrypt(key []byte, text string) (string, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return "", err
+
 	}
 
 	msg := Pad([]byte(text))

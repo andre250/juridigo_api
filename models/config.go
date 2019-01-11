@@ -1,7 +1,7 @@
 package models
 
 /*
-App - Modelo para inicialização do APP
+App - Modelo para inicialização do App
 */
 type App struct {
 	Port   string `json:"port"`
