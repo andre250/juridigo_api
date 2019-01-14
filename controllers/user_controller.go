@@ -59,6 +59,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		Cadastrais:     registro.Cadastrais,
 		Curriculares:   registro.Curriculares,
 		DadosPagamento: payment,
+		Ranking:        5,
 	}
 
 	err = helpers.Db().Insert("usuarios", user)

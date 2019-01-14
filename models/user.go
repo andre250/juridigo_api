@@ -14,6 +14,7 @@ type Usuario struct {
 	Cadastrais     Cadastrais    `bson:"cadastrais" json:"cadastrais"`
 	Curriculares   Curriculares  `bson:"curriculares" json:"curriculares"`
 	DadosPagamento Pagamento     `bson:"DadosPagamento" json:"DadosPagamento"`
+	Ranking        uint64        `bson:"ranking" json:"ranking"`
 }
 
 /*
