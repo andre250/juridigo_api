@@ -129,5 +129,5 @@ Descrição: Autenticação de usuario via usuario e senha
 Body: 
 {
 	"credencial": [ String | Hash256 de usuario:senha]
-} 
+}sky 
 ```

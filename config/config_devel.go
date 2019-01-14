@@ -10,15 +10,15 @@ Devel - Responsável pode difinir confirgurações de ambiente de desenvolviment
 func devel() {
 	globaConfig = models.Config{
 		App: models.App{
-			Port:   "3030",
+			Port:   "3032",
 			Secret: "JUR1d1G00S3cr377",
 		},
 		Version: "0.0.1",
 		Database: models.Database{
-			Path:     "mongodb://<dbuser>:<dbpassword>@ds229701.mlab.com:29701/mica-develop",
+			Path:     "mongodb://<dbuser>:<dbpassword>@ds257314.mlab.com:57314/juridevel",
 			User:     "juridigo",
 			Password: "jur1digo",
-			Database: "mica-develop",
+			Database: "juridevel",
 		},
 		Amazon: models.Amazon{
 			Prefix:  "juri_",
