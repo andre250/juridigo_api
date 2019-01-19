@@ -15,6 +15,7 @@ type Usuario struct {
 	Curriculares   Curriculares  `bson:"curriculares" json:"curriculares"`
 	DadosPagamento Pagamento     `bson:"DadosPagamento" json:"DadosPagamento"`
 	Ranking        uint64        `bson:"ranking" json:"ranking"`
+	AppToken       string        `bson:"appToken" json:"appToken"`
 }
 
 /*
