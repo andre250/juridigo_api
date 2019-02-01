@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/juridigo/juridigo_api_usuario/models"
+
 	"github.com/juridigo/juridigo_api_usuario/config"
 	mgo "gopkg.in/mgo.v2"
 )
@@ -79,15 +81,14 @@ func (s *Session) Find(collection string, query interface{}, tipo int) (interfac
 }
 
 /*
-FindSelect - Função de insert CRUD
+FindSelectUser - Função de insert CRUD
 */
-func (s *Session) FindSelect(collection string, query, selector interface{}) {
-	var result interface{}
-	err := s.Session.DB(configuration.Database.Database).C(collection).Find(query).Select(selector).One(&result)
+func (s *Session) FindSelectUser(collection string, query interface{}, model *models.Usuario) error {
+	err := s.Session.DB(configuration.Database.Database).C(collection).Find(query).One(model)
 	if err != nil {
-		return
+		return err
 	}
-	return
+	return nil
 }
 
 /*

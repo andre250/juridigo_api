@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -31,6 +32,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	utils.ValidateBasicInfo(w, registro)
 	configuration := config.GetConfig()
 	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), registro.Pagamento)
+	fmt.Println(paymentInfo)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["UNAUTHORIZED"])
 		w.Write([]byte(`{"erro":"Hash de pagamento inválido"}`))
@@ -45,14 +47,15 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := helpers.UploadFile(w, registro.Credenciais.Credencial, registro.Curriculares.Curriculum)
-
-	if url == "" {
+	urlCv := helpers.UploadFile(w, "cv_"+registro.Credenciais.Credencial, registro.Curriculares.Curriculum)
+	urlDoc := helpers.UploadFile(w, "doc_"+registro.Credenciais.Credencial, registro.Cadastrais.Documento)
+	if urlCv == "" || urlDoc == "" {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte(`{"msg": "Erro ao processar currilum", "erro": "curriculum"}`))
 		return
 	}
-	registro.Curriculares.Curriculum = url
+	registro.Curriculares.Curriculum = urlCv
+	registro.Cadastrais.Documento = urlDoc
 
 	user := models.Usuario{
 		ID:             bson.NewObjectId(),
@@ -70,9 +73,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	credencial := models.Credencial{
-		ID:         strings.Split(strings.Split(user.ID.String(), "ObjectIdHex(\"")[1], "\")")[0],
-		Credencial: registro.Credenciais.Credencial,
-		Tipo:       registro.Credenciais.Tipo,
+		ID:             strings.Split(strings.Split(user.ID.String(), "ObjectIdHex(\"")[1], "\")")[0],
+		Credencial:     registro.Credenciais.Credencial,
+		Tipo:           registro.Credenciais.Tipo,
+		UsuarioDetalhe: registro.Credenciais.UsuarioDetalhe,
 	}
 
 	if credencial.Tipo == 1 {

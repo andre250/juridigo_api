@@ -10,12 +10,13 @@ import (
 Usuario - Modelo de inicialização de um usuário
 */
 type Usuario struct {
-	ID             bson.ObjectId `bson:"_id" json:"id"`
+	ID             bson.ObjectId `bson:"_id,omitempty" json:"id"`
 	Cadastrais     Cadastrais    `bson:"cadastrais" json:"cadastrais"`
 	Curriculares   Curriculares  `bson:"curriculares" json:"curriculares"`
 	DadosPagamento Pagamento     `bson:"DadosPagamento" json:"DadosPagamento"`
 	Ranking        uint64        `bson:"ranking" json:"ranking"`
 	AppToken       string        `bson:"appToken" json:"appToken"`
+	RecoveryToken  string        `bson:"recoveryToken,omitempty" json:"recoveryToken,omitempty"`
 }
 
 /*
@@ -33,6 +34,7 @@ Credencial - Controlador de acesso
 */
 type Credencial struct {
 	ID               string `bson:"id" json:"id"`
+	UsuarioDetalhe   string `bson:"usuario" json:"usuario"`
 	Credencial       string `bson:"credencial" json:"credencial"`
 	Tipo             int    `bson:"tipo" json:"tipo"`
 	FacebookID       string `bson:"facebookId,omitempty" json:"facebookId"`
@@ -57,6 +59,7 @@ type Cadastrais struct {
 	Complemento    string    `bson:"complemento" json:"complemento"`
 	Longitude      float64   `bson:"longitude" json:"longitude"`
 	Latitude       float64   `bson:"latitude" json:"latitude"`
+	Documento      string    `bson:"documento" json:"documento"`
 }
 
 /*

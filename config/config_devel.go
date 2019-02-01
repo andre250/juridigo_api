@@ -29,5 +29,11 @@ func devel() {
 		Facebook: models.Facebook{
 			AppToken: "199329427332694|PluJMN9CqiFsZCVmgNIOA_Z6H08",
 		},
+		Email: models.Email{
+			From:     "gui.martinscaruso@gmail.com",
+			Pass:     "Htv1403M@go01338",
+			SMTP:     "smtp.gmail.com",
+			SMTPAddr: "587",
+		},
 	}
 }

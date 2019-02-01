@@ -19,6 +19,16 @@ type Database struct {
 }
 
 /*
+Email  - Modelo para inicializacao do email
+*/
+type Email struct {
+	From     string `json:"from"`
+	Pass     string `json:"pass"`
+	SMTP     string `json:"smtp"`
+	SMTPAddr string `json:"smtpAddr"`
+}
+
+/*
 Amazon - Modelo para inicialização da Amazon
 */
 type Amazon struct {
@@ -44,4 +54,5 @@ type Config struct {
 	Database Database `json:"database"`
 	Amazon   Amazon   `json:"amazon"`
 	Facebook Facebook `json:"appToken"`
+	Email    Email    `json:"email"`
 }
