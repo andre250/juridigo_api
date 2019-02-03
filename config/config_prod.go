@@ -32,5 +32,11 @@ func prod() {
 		Facebook: models.Facebook{
 			AppToken: os.Getenv("FACE_TOKEN"),
 		},
+		Email: models.Email{
+			From:     os.Getenv("EMAIL_FROM"),
+			Pass:     os.Getenv("EMAIL_PASS"),
+			SMTP:     os.Getenv("EMAIL_SMTP"),
+			SMTPAddr: os.Getenv("EMAIL_SMTPAddr"),
+		},
 	}
 }
