@@ -26,4 +26,8 @@ func Routes() {
 	helpers.APIDisperser("/email",
 		models.DefaultAPI{SubPath: "/send", Handler: controllers.SendEmail, Auth: false},
 	)
+
+	helpers.APIDisperser("/health",
+		models.DefaultAPI{SubPath: "/amilive", Handler: controllers.HealthCheck, Auth: false},
+	)
 }
