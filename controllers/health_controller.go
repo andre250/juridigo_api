@@ -10,5 +10,5 @@ import (
 func HealthCheck(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(utils.HTTPStatusCode["OK"])
-	w.Write([]byte(`{"msg": "Estou vivo em ` + os.Getenv("ENV") + `}`))
+	w.Write([]byte(`{"msg": "Estou vivo em ` + os.Getenv("ENV") + `"}`))
 }
