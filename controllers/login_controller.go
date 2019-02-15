@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/juridigo/juridigo_api_usuario/helpers"
@@ -27,6 +28,7 @@ func LoginAuth(w http.ResponseWriter, r *http.Request) {
 
 	query, err := helpers.Db().Find("credenciais", bson.M{"credencial": credencial.Credencial}, 1)
 	if err != nil {
+		fmt.Println(err)
 		w.WriteHeader(utils.HTTPStatusCode["NOT_FOUND"])
 		w.Write([]byte("Usuario inexistente"))
 		return
@@ -58,7 +60,7 @@ func defaultAuth(w http.ResponseWriter, resultado models.Credencial) {
 	var user models.Usuario
 	bson.UnmarshalJSON(json, &user)
 
-	token := helpers.GenerateLoginToken(resultado.ID, user.Cadastrais.Nome)
+	token := helpers.GenerateLoginToken(resultado.ID, user.Cadastrais.Nome, user.Cadastrais.Latitude, user.Cadastrais.Longitude)
 
 	w.WriteHeader(utils.HTTPStatusCode["OK"])
 	w.Write([]byte(`{"token":"` + token + `"}`))

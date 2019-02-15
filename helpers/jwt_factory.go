@@ -14,7 +14,7 @@ import (
 /*
 GenerateLoginToken - Metodo de criação de token JWT
 */
-func GenerateLoginToken(id, name string) string {
+func GenerateLoginToken(id, name string, latitude, longitude float64) string {
 	config := config.GetConfig()
 	var env string
 	switch os.Getenv("ENV") {
@@ -31,6 +31,8 @@ func GenerateLoginToken(id, name string) string {
 		"name":        name,
 		"environment": env,
 		"exp":         time.Now().Add(time.Hour * 8).Unix(),
+		"latitude":    latitude,
+		"longitude":   longitude,
 	})
 
 	tokenString, _ := token.SignedString([]byte(config.App.Secret))
