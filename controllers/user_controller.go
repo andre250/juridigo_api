@@ -2,11 +2,9 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 
-	"github.com/juridigo/juridigo_api_usuario/config"
 	"github.com/juridigo/juridigo_api_usuario/helpers"
 	"github.com/juridigo/juridigo_api_usuario/models"
 	"gopkg.in/mgo.v2/bson"
@@ -30,20 +28,15 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Erro ao obter dados"))
 	}
 	utils.ValidateBasicInfo(w, registro)
-	configuration := config.GetConfig()
-	paymentInfo, err := helpers.Decrypt([]byte(string(configuration.App.Secret)), registro.Pagamento)
-	fmt.Println(paymentInfo)
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["UNAUTHORIZED"])
 		w.Write([]byte(`{"erro":"Hash de pagamento inválido"}`))
 		return
 	}
 
-	payment, err := utils.ValidatePaymentInfo(w, paymentInfo)
+	payment, err := utils.ValidatePaymentInfo(w, registro.Pagamento)
 
 	if err != nil {
-		w.WriteHeader(utils.HTTPStatusCode["BAD_REQUEST"])
-		w.Write([]byte(`{"msg": "Cartão inválido", "erro": "cartão"}`))
 		return
 	}
 

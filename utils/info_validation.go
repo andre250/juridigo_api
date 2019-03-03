@@ -58,14 +58,7 @@ func ValidateBasicInfo(w http.ResponseWriter, user models.Registro) {
 /*
 ValidatePaymentInfo - Responsǘel por valida informações básicas de pagamento
 */
-func ValidatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagamento, error) {
-	paymentModel := models.Pagamento{}
-	err := json.Unmarshal([]byte(payment), &paymentModel)
-	if err != nil {
-		w.WriteHeader(HTTPStatusCode["BAD_REQUEST"])
-		w.Write([]byte(`{"msg": "Erro no formato do Pagamento", "erro": "pagamento"}`))
-		return models.Pagamento{}, errors.New("Erro no formato do pagamaento")
-	}
+func ValidatePaymentInfo(w http.ResponseWriter, paymentModel models.Pagamento) (models.Pagamento, error) {
 
 	card := creditcard.Card{Number: paymentModel.Numero, Cvv: paymentModel.Cvv, Month: paymentModel.MesVencimento, Year: paymentModel.AnoVencimento}
 	company, err := card.MethodValidate()
