@@ -49,13 +49,16 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	urlCv := helpers.UploadFile(w, "cv_"+registro.Credenciais.Credencial, registro.Curriculares.Curriculum)
 	urlDoc := helpers.UploadFile(w, "doc_"+registro.Credenciais.Credencial, registro.Cadastrais.Documento)
-	if urlCv == "" || urlDoc == "" {
+	urlProva := helpers.UploadFile(w, "pro_"+registro.Credenciais.Credencial, registro.Cadastrais.Prova)
+
+	if urlCv == "" || urlDoc == "" || urlProva == "" {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte(`{"msg": "Erro ao processar currilum", "erro": "curriculum"}`))
 		return
 	}
 	registro.Curriculares.Curriculum = urlCv
 	registro.Cadastrais.Documento = urlDoc
+	registro.Cadastrais.Prova = urlProva
 
 	user := models.Usuario{
 		ID:             bson.NewObjectId(),

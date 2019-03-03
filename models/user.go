@@ -60,6 +60,7 @@ type Cadastrais struct {
 	Longitude      float64   `bson:"longitude" json:"longitude"`
 	Latitude       float64   `bson:"latitude" json:"latitude"`
 	Documento      string    `bson:"documento" json:"documento"`
+	Prova          string    `bson:"prova" json:"prova"`
 }
 
 /*
