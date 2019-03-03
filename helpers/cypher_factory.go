@@ -5,8 +5,10 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
+	"crypto/sha256"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"io"
 	"strings"
 )
@@ -61,31 +63,29 @@ func Encrypt(key []byte, text string) (string, error) {
 	return finalMsg, nil
 }
 
-func Decrypt(key []byte, text string) (string, error) {
+func KeyDecrypt(keyStr string, cryptoText string) string {
+	keyBytes := sha256.Sum256([]byte(keyStr))
+	return Decrypt(keyBytes[:], cryptoText)
+}
+
+func Decrypt(key []byte, text string) string {
+	ciphertext, err := base64.StdEncoding.DecodeString(text)
+	if err != nil {
+		panic(err)
+	}
+
 	block, err := aes.NewCipher(key)
 	if err != nil {
-		return "", err
+		panic(err)
 	}
 
-	decodedMsg, err := base64.URLEncoding.DecodeString(addBase64Padding(text))
-	if err != nil {
-		return "", err
+	if len(ciphertext) < aes.BlockSize {
+		panic("ciphertext too short")
 	}
+	iv := ciphertext[:aes.BlockSize]
+	ciphertext = ciphertext[aes.BlockSize:]
+	stream := cipher.NewCFBDecrypter(block, iv)
 
-	if (len(decodedMsg) % aes.BlockSize) != 0 {
-		return "", errors.New("Tamanho do blocksize nao é adequado")
-	}
-
-	iv := decodedMsg[:aes.BlockSize]
-	msg := decodedMsg[aes.BlockSize:]
-
-	cfb := cipher.NewCFBDecrypter(block, iv)
-	cfb.XORKeyStream(msg, msg)
-
-	unpadMsg, err := Unpad(msg)
-	if err != nil {
-		return "", err
-	}
-
-	return string(unpadMsg), nil
+	stream.XORKeyStream(ciphertext, ciphertext)
+	return fmt.Sprintf("%s", ciphertext)
 }

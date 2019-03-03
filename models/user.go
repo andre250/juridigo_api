@@ -26,7 +26,7 @@ type Registro struct {
 	Credenciais  Credencial   `bson:"credenciais" json:"credenciais"`
 	Cadastrais   Cadastrais   `bson:"cadastrais" json:"cadastrais"`
 	Curriculares Curriculares `bson:"curriculares" json:"curriculares"`
-	Pagamento    Pagamento    `bson:"pagamento" json:"pagamento"`
+	Pagamento    string       `bson:"pagamento" json:"pagamento"`
 }
 
 /*
