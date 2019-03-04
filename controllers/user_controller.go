@@ -30,7 +30,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.ValidateBasicInfo(w, registro)
 	configuration := config.GetConfig()
-	paymentInfo := helpers.KeyDecrypt(configuration.App.Secret, registro.Pagamento)
+
+	paymentInfo := helpers.Decrypt(configuration.App.Secret, registro.Pagamento)
 
 	payment, err := utils.ValidatePaymentInfo(w, paymentInfo)
 

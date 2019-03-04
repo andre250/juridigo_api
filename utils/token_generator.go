@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"math/rand"
 	"strings"
 )
@@ -20,6 +19,5 @@ func GenerateRecoveryToken(size int) string {
 	}
 
 	finaltoken := strings.Join(recovery, "")
-	fmt.Println(finaltoken)
 	return finaltoken
 }

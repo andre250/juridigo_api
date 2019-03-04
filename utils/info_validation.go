@@ -60,7 +60,6 @@ ValidatePaymentInfo - Responsǘel por valida informações básicas de pagamento
 */
 func ValidatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagamento, error) {
 	paymentModel := models.Pagamento{}
-	fmt.Println(payment)
 	err := json.Unmarshal([]byte(payment), &paymentModel)
 	if err != nil {
 		w.WriteHeader(HTTPStatusCode["BAD_REQUEST"])

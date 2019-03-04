@@ -11,7 +11,7 @@ func devel() {
 	globaConfig = models.Config{
 		App: models.App{
 			Port:   "3032",
-			Secret: "JUR1d1G00S3cr377",
+			Secret: "jur1d1g0",
 		},
 		Version: "0.0.1",
 		Database: models.Database{
