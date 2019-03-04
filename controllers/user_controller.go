@@ -27,6 +27,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
 		w.Write([]byte("Erro ao obter dados"))
+		return
 	}
 	utils.ValidateBasicInfo(w, registro)
 	configuration := config.GetConfig()
