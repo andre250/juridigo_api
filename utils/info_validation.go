@@ -3,10 +3,8 @@ package utils
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 
-	creditcard "github.com/durango/go-credit-card"
 	"github.com/juridigo/juridigo_api_usuario/models"
 )
 
@@ -67,21 +65,5 @@ func ValidatePaymentInfo(w http.ResponseWriter, payment string) (models.Pagament
 		return models.Pagamento{}, errors.New("Erro no formato do pagamaento")
 	}
 
-	card := creditcard.Card{Number: paymentModel.Numero, Cvv: paymentModel.Cvv, Month: paymentModel.MesVencimento, Year: paymentModel.AnoVencimento}
-	company, err := card.MethodValidate()
-	if err != nil {
-		w.WriteHeader(HTTPStatusCode["BAD_REQUEST"])
-		w.Write([]byte(`{"msg": "Cartão invalido", "erro": "cartao"}`))
-		return models.Pagamento{}, errors.New("Cartao inválido")
-	}
-	paymentModel.Compania = company.Long
-
-	err = card.Validate()
-	if err != nil {
-		fmt.Println(err)
-		w.WriteHeader(HTTPStatusCode["BAD_REQUEST"])
-		w.Write([]byte(`{"msg": "Cartão invalido", "erro": "cartao"}`))
-		return models.Pagamento{}, errors.New("Cartão inválido")
-	}
 	return paymentModel, nil
 }
