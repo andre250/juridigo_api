@@ -9,13 +9,13 @@ import (
 /*
 UploadFile - Função responsável por liberar o publish do item
 */
-func UploadFile(w http.ResponseWriter, name, item string) string {
+func UploadFile(w http.ResponseWriter, name, item, extension string) string {
 	dec, err := base64.StdEncoding.DecodeString(item)
 
 	if err != nil {
 		return ""
 	}
-	f, err := os.Create(name[:len(name)/3] + ".pdf")
+	f, err := os.Create(name[:len(name)/3] + extension)
 
 	if err != nil {
 		return ""

@@ -40,9 +40,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	urlCv := helpers.UploadFile(w, "cv_"+registro.Credenciais.Credencial, registro.Curriculares.Curriculum)
-	urlDoc := helpers.UploadFile(w, "doc_"+registro.Credenciais.Credencial, registro.Cadastrais.Documento)
-	urlProva := helpers.UploadFile(w, "pro_"+registro.Credenciais.Credencial, registro.Cadastrais.Prova)
+	urlCv := helpers.UploadFile(w, "cv_"+registro.Credenciais.Credencial, registro.Curriculares.Curriculum, ".pdf")
+	urlDoc := helpers.UploadFile(w, "doc_"+registro.Credenciais.Credencial, registro.Cadastrais.Documento, ".jpg")
+	urlProva := helpers.UploadFile(w, "pro_"+registro.Credenciais.Credencial, registro.Cadastrais.Prova, ".jpg")
 
 	if urlCv == "" || urlDoc == "" || urlProva == "" {
 		w.WriteHeader(utils.HTTPStatusCode["INTERNAL_SERVER_ERROR"])
