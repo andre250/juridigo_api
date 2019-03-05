@@ -60,7 +60,7 @@ func defaultAuth(w http.ResponseWriter, resultado models.Credencial) {
 	var user models.Usuario
 	bson.UnmarshalJSON(json, &user)
 
-	token := helpers.GenerateLoginToken(resultado.ID, user.Cadastrais.Nome, user.Cadastrais.Latitude, user.Cadastrais.Longitude)
+	token := helpers.GenerateLoginToken(resultado.ID, user.Cadastrais.Nome, user.Status, user.Cadastrais.Latitude, user.Cadastrais.Longitude)
 
 	w.WriteHeader(utils.HTTPStatusCode["OK"])
 	w.Write([]byte(`{"token":"` + token + `"}`))

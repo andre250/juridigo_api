@@ -17,6 +17,7 @@ type Usuario struct {
 	Ranking        uint64        `bson:"ranking" json:"ranking"`
 	AppToken       string        `bson:"appToken" json:"appToken"`
 	RecoveryToken  string        `bson:"recoveryToken,omitempty" json:"recoveryToken,omitempty"`
+	Status         string        `bson:"status" json:"status"`
 }
 
 /*
